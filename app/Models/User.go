@@ -1,6 +1,4 @@
-package models
-
-import "fmt"
+package Models
 
 type User struct {
 	Name string
@@ -8,5 +6,4 @@ type User struct {
 }
 
 func (u *User) Say() {
-	fmt.Println(u.Name)
 }

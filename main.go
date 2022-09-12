@@ -2,15 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/devzzk/go-blog/models"
+	models2 "github.com/devzzk/go-blog/app/Models"
 )
 
 func main() {
-	user1 := models.User{
+	user1 := models2.User{
 		Age:  18,
 		Name: "小红",
 	}
-	var users [10]models.User
+	var users [10]models2.User
 	users[0] = user1
 	fmt.Println(users)
 }
