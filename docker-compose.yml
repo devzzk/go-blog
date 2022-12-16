@@ -2,21 +2,10 @@ version: '3'
 
 services:
 
-  ### Workspace Utilities ##################################
-  workspace:
-    image: registry.cn-hangzhou.aliyuncs.com/mn/leica_community_workspace:latest
-    volumes:
-      - ./:/var/www:cached
-    tty: true
-    logging:
-      options:
-        max-file: "5"
-        max-size: "10m"
-
   ### MySQL ################################################
   mysql:
     build:
-      context: ./docker/mysql
+      context: ./build/docker/mysql
       args:
         - MYSQL_VERSION=5.7
     environment:
@@ -38,29 +27,12 @@ services:
 
   ### Redis ################################################
   redis:
-    build:
-      context: ./docker/redis
-      args:
-        - MYSQL_VERSION=5.7
+    image: redis:latest
     volumes:
-      - ./docker/docker-runtime/redis:/data
+      - ./build/docker/docker-runtime/redis:/data
     ports:
       - "6379:6379"
     logging:
       options:
         max-file: "5"
         max-size: "10m"
-
-  ### Redis webui ##########################################
-  redis-webui:
-    build:
-      context: ./docker/redis-webui
-    environment:
-      - ADMIN_USER=mobilenow
-      - ADMIN_PASS=111111
-      - REDIS_1_HOST=redis
-      - REDIS_1_PORT=6379
-    ports:
-      - "8001:80"
-    depends_on:
-      - redis
